@@ -5,7 +5,11 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
+  roots: ["<rootDir>/src/"],
   testEnvironment: "jest-environment-jsdom",
+  moduleNameMapper: {
+    "^~/(.*)$": "<rootDir>/src/$1",
+  },
 };
 
 module.exports = createJestConfig(customJestConfig);
