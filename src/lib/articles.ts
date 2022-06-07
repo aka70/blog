@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
+import prism from "remark-prism";
 
 const articlesDirectory = path.join(process.cwd(), "src", "articles");
 console.log(articlesDirectory);
@@ -66,7 +67,8 @@ export async function getArticleData(id: string) {
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()
-    .use(html)
+    .use(html, { sanitize: false })
+    .use(prism)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
